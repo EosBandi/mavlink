@@ -1667,5 +1667,18 @@
       <field type="float" name="min_distance" units="m">Minimum distance the sensor can measure.</field>
       <field type="float" name="max_distance" units="m">Maximum distance the sensor can measure.</field>
     </message>
+    <message id="11100" name="ARM_AUTHORIZATION_REQUEST">
+      <description>Request arming authorizaton.</description>
+      <field type="uint8_t" name="target_system">system id of arm authorizer</field>
+      <field type="uint16_t" name="auth_window">Time window for getting authorization in milliseconds, authorizations after this time will not accepted, this prevent unwanted arming in long authorization processes.</field>
+    </message>
+    <message id="11101" name="ARM_AUTHORIZATION_RESPONSE">
+      <description>Responnse to arming authorizaton request / Standalone authorization.</description>
+      <field type="uint8_t" name="result">ACCEPTED, TEMPORARILY_REJECTED or DENIED</field>
+      <field type="uint8_t" name="result_param1">if result is TEMPORARILY_REJECTED or DENIED the reason should be set MAV_ARM_AUTH_DENIED_REASON otherwise it should be set as 0</field>
+      <field type="uint8_t" name="result_param2">if result is ACCEPTED the it should be set with the time in seconds that this authorization is valid otherwise an aditional information about why it was denied should be set. example: for result_param1=MAV_ARM_AUTH_DENIED_REASON_INVALID_WAYPOINT or MAV_ARM_AUTH_DENIED_REASON_AIRSPACE_IN_USE it may have the index of the waypoint that caused it to be denied.</field>
+      <field type="uint8_t" name="target_system">system id of the drone</field>
+      <field type="uint8_t" name="target_component">component id of the drone</field>
+    </message>    
   </messages>
 </mavlink>
